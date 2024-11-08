@@ -1,0 +1,60 @@
+/* src/app/Pages/Profile/Profile.module.css */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.profileHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profilePhoto {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #5a5a5a;
+    margin-right: 20px;
+}
+
+.profileInfo {
+    flex-grow: 1;
+    color: #5a5a5a;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.section h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #5a5a5a;
+}
+
+.jobPostings,
+.resumePortfolio {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    flex: 1 1 calc(33.333% - 20px);
+    background-color: #5a5a5a;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color:#ffffff;
+}
+
+@media (max-width: 768px) {
+    .card {
+        flex: 1 1 100%;
+    }
+}
