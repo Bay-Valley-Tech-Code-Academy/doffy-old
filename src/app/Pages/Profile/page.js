@@ -3,15 +3,27 @@
 "use client";
 
 import Image from 'next/image';
-import styles from './Profile.module.css'; // Example for styling
+import styles from './Profile.module.css';
 import { useState } from 'react';
 
 const ProfilePage = () => {
-    const [showResumeBuilder, setShowResumeBuilder] = useState(false);
     const [showResumeAll, setShowResumeAll] = useState(false);
+    const [showPostingAll, setShowPostingAll] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
+    const [selectedResume, setSelectedResume] = useState(null);
 
+    const [showResumeBuilder, setShowResumeBuilder] = useState(false);
     const toggleResumeBuilder = () => setShowResumeBuilder(!showResumeBuilder);
+
     const toggleResumeAll = () => setShowResumeAll(!showResumeAll);
+    const togglePostingAll = () => setShowPostingAll(!showPostingAll);
+
+    const openPopup = (resume) => {
+        setSelectedResume(resume);
+        setShowPopup(true);
+    };
+
+    const closePopup = () => setShowPopup(false);
 
     return (
         <div className={styles.container}>
@@ -35,32 +47,46 @@ const ProfilePage = () => {
                     <div className={styles.card}>Posting 1</div>
                     <div className={styles.card}>Posting 2</div>
                     <div className={styles.card}>Posting 3</div>
-                    <div className={styles.card}>Show All</div>
                 </div>
             </div>
+            <button onClick={togglePostingAll} className={styles.toggleButton}>
+                {showPostingAll ? 'Hide All Postings' : 'Show All Postings'}
+            </button>
+            {showPostingAll && (
+                <div className={styles.expandedSection}>
+                    <div className={styles.section}>
+                        <div className={styles.expandAll}>
+                            <h4>Posting 4</h4>
+                            <h4>Posting 5</h4>
+                            <h4>Posting 6</h4>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className={styles.section}>
                 <h2>Resumes</h2>
                 <div className={styles.resumePortfolio}>
-                    <div className={styles.card}>Resume File 1</div>
-                    <div className={styles.card}>Resume File 2</div>
-                    <div className={styles.card}>Resume File 3</div>
+                    <div onClick={() => openPopup('Resume_File_1.pdf')} className={styles.resumeCard}>Resume_File_1.pdf</div>
+                    <div onClick={() => openPopup('Resume_File_2.pdf')} className={styles.resumeCard}>Resume_File_2.pdf</div>
+                    <div onClick={() => openPopup('Resume_File_3.pdf')} className={styles.resumeCard}>Resume_File_3.pdf</div>
                 </div>
                 <button onClick={toggleResumeAll} className={styles.toggleButton}>
-                    {showResumeAll ? 'Hide More Resumes' : 'Show More Resumes'}
+                    {showResumeAll ? 'Hide All Resumes' : 'Show All Resumes'}
                 </button>
                 {showResumeAll && (
-                    <div className={styles.resumeAll}>
-                        <div className={styles.section}>
-                            <h3>Additional Resumes</h3>
-                            <div className={styles.resumeFiles}>
-                                <h4 className={styles.resumeFile}>Resume_File_4.pdf</h4>
-                                <h4 className={styles.resumeFile}>Resume_File_5.pdf</h4>
-                                <h4 className={styles.resumeFile}>Resume_File_6.pdf</h4>
-                            </div>
+                    <div className={styles.expandedSection}>
+                        <div className={styles.expandAll}>
+                            <h4 onClick={() => openPopup('Resume_File_4.pdf')} className={styles.resumeFile}>Resume_File_4.pdf</h4>
+                            <h4 onClick={() => openPopup('Resume_File_5.pdf')} className={styles.resumeFile}>Resume_File_5.pdf</h4>
+                            <h4 onClick={() => openPopup('Resume_File_6.pdf')} className={styles.resumeFile}>Resume_File_6.pdf</h4>
                         </div>
                     </div>
                 )}
+            </div>
+
+            <div className={styles.section}>
+                <h2>Resume Builder</h2>
                 <button onClick={toggleResumeBuilder} className={styles.toggleButton}>
                     {showResumeBuilder ? 'Hide Resume Builder' : 'Show Resume Builder'}
                 </button>
@@ -72,7 +98,7 @@ const ProfilePage = () => {
                             <h4>Summary</h4>
                             <textarea maxLength="600" placeholder="Enter a brief summary..." />
                         </div>
-
+                        
                         {/* Work Experience Section */}
                         <div className={styles.section}>
                             <h4>Work Experience</h4>
@@ -85,7 +111,7 @@ const ProfilePage = () => {
                             <input type="month" placeholder="To (Month & Year or Present)" />
                             <textarea placeholder="Job Description" />
                         </div>
-
+                        
                         {/* Education Section */}
                         <div className={styles.section}>
                             <h4>Education</h4>
@@ -95,21 +121,21 @@ const ProfilePage = () => {
                             <input type="month" placeholder="From (Month & Year)" />
                             <input type="month" placeholder="To (Month & Year or Present)" />
                         </div>
-
+                        
                         {/* Skills Section */}
                         <div className={styles.section}>
                             <h4>Skills</h4>
                             <input type="text" placeholder="Skill Name" />
                             <input type="number" placeholder="Years of Experience" min="0" />
                         </div>
-
+                        
                         {/* Links Section */}
                         <div className={styles.section}>
                             <h4>Links</h4>
                             <input type="text" placeholder="Link Name" />
                             <input type="url" placeholder="Link URL" />
                         </div>
-
+                        
                         {/* Publications Section */}
                         <div className={styles.section}>
                             <h4>Publications</h4>
@@ -121,6 +147,18 @@ const ProfilePage = () => {
                     </div>
                 )}
             </div>
+
+            {/* Popup overlay */}
+            {showPopup && (
+                <div className={styles.popupOverlay} onClick={closePopup}>
+                    <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
+                        <h3>{selectedResume}</h3>
+                        <p>Placeholder for the PDF preview content.</p>
+                        <button onClick={closePopup} className={styles.closeButton}>Close</button>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 };
