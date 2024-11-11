@@ -12,9 +12,6 @@ const ProfilePage = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [selectedResume, setSelectedResume] = useState(null);
 
-    const [showResumeBuilder, setShowResumeBuilder] = useState(false);
-    const toggleResumeBuilder = () => setShowResumeBuilder(!showResumeBuilder);
-
     const toggleResumeAll = () => setShowResumeAll(!showResumeAll);
     const togglePostingAll = () => setShowPostingAll(!showPostingAll);
 
@@ -22,7 +19,6 @@ const ProfilePage = () => {
         setSelectedResume(resume);
         setShowPopup(true);
     };
-
     const closePopup = () => setShowPopup(false);
 
     return (
@@ -85,70 +81,6 @@ const ProfilePage = () => {
                 )}
             </div>
 
-            <div className={styles.section}>
-                <h2>Resume Builder</h2>
-                <button onClick={toggleResumeBuilder} className={styles.toggleButton}>
-                    {showResumeBuilder ? 'Hide Resume Builder' : 'Show Resume Builder'}
-                </button>
-                {showResumeBuilder && (
-                    <div className={styles.resumeBuilder}>
-                        <h3>Resume Builder</h3>
-                        {/* Summary Section */}
-                        <div className={styles.section}>
-                            <h4>Summary</h4>
-                            <textarea maxLength="600" placeholder="Enter a brief summary..." />
-                        </div>
-                        
-                        {/* Work Experience Section */}
-                        <div className={styles.section}>
-                            <h4>Work Experience</h4>
-                            <input type="text" placeholder="Job Title" />
-                            <input type="text" placeholder="Company Name" />
-                            <input type="text" placeholder="Location (Address or Remote)" />
-                            <input type="text" placeholder="City" />
-                            <input type="text" placeholder="Country" />
-                            <input type="month" placeholder="From (Month & Year)" />
-                            <input type="month" placeholder="To (Month & Year or Present)" />
-                            <textarea placeholder="Job Description" />
-                        </div>
-                        
-                        {/* Education Section */}
-                        <div className={styles.section}>
-                            <h4>Education</h4>
-                            <input type="text" placeholder="Level of Education" />
-                            <input type="text" placeholder="Field of Study" />
-                            <input type="text" placeholder="School Name" />
-                            <input type="month" placeholder="From (Month & Year)" />
-                            <input type="month" placeholder="To (Month & Year or Present)" />
-                        </div>
-                        
-                        {/* Skills Section */}
-                        <div className={styles.section}>
-                            <h4>Skills</h4>
-                            <input type="text" placeholder="Skill Name" />
-                            <input type="number" placeholder="Years of Experience" min="0" />
-                        </div>
-                        
-                        {/* Links Section */}
-                        <div className={styles.section}>
-                            <h4>Links</h4>
-                            <input type="text" placeholder="Link Name" />
-                            <input type="url" placeholder="Link URL" />
-                        </div>
-                        
-                        {/* Publications Section */}
-                        <div className={styles.section}>
-                            <h4>Publications</h4>
-                            <input type="text" placeholder="Publication Name" />
-                            <input type="url" placeholder="Publication URL" />
-                            <input type="month" placeholder="Published Date (Month & Year)" />
-                            <textarea maxLength="600" placeholder="Summary" />
-                        </div>
-                    </div>
-                )}
-            </div>
-
-            {/* Popup overlay */}
             {showPopup && (
                 <div className={styles.popupOverlay} onClick={closePopup}>
                     <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
@@ -158,6 +90,10 @@ const ProfilePage = () => {
                     </div>
                 </div>
             )}
+
+            <div className={styles.section}>
+                <h2>Resume Builder</h2>
+            </div>
 
         </div>
     );

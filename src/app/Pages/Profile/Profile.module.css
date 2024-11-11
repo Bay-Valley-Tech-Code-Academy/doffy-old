@@ -52,7 +52,7 @@
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    color:#ffffff;
+    color: #ffffff;
 }
 
 .resumeCard {
@@ -61,7 +61,7 @@
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    color:#ffffff;
+    color: #ffffff;
     cursor: pointer;
 }
 
@@ -71,6 +71,7 @@
 }
 
 @media (max-width: 768px) {
+
     .card,
     .resumeCard {
         flex: 1 1 100%;
@@ -86,48 +87,10 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    text-align: center;
 }
 
 .toggleButton:hover {
     background-color: #4a4a4a;
-}
-
-.resumeBuilder {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.resumeBuilder h3 {
-    margin-bottom: 15px;
-    color: #5a5a5a;
-}
-
-.resumeBuilder .section {
-    margin-bottom: 20px;
-}
-
-.resumeBuilder input,
-.resumeBuilder textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    color: #333;
-}
-
-.resumeBuilder textarea {
-    resize: vertical;
-}
-
-.resumeBuilder h4 {
-    margin-bottom: 10px;
-    color: #333;
 }
 
 .resumeFile {
@@ -158,9 +121,7 @@
     padding: 0;
 }
 
-/* Add styles for the content containers */
 .expandAll {
-    /* Use flexbox for centering */
     display: flex;
     justify-content: center;
     align-items: center;
