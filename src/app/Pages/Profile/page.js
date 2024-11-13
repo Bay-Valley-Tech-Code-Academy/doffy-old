@@ -1,9 +1,10 @@
-// src/app/Pages/Profile/page.js
+// src/app/pages/profile/page.js
 
 "use client";
 
+import Link from 'next/link';
 import Image from 'next/image';
-import styles from './Profile.module.css';
+import styles from './profile.module.css';
 import { useState } from 'react';
 
 const ProfilePage = () => {
@@ -22,7 +23,7 @@ const ProfilePage = () => {
     const closePopup = () => setShowPopup(false);
 
     return (
-        <div className={styles.container}>
+        <div>
             <div className={styles.profileHeader}>
                 {/* You can replace this with a Next.js Image component */}
                 <div className={styles.profilePhoto}>
@@ -93,8 +94,12 @@ const ProfilePage = () => {
 
             <div className={styles.section}>
                 <h2>Resume Builder</h2>
+                <div className={styles.resumePortfolio}>
+                    <Link href="resumebuilder">
+                        <div className={styles.resumeCard}>Take me to build my resume!</div>
+                    </Link>
+                </div>
             </div>
-
         </div>
     );
 };
