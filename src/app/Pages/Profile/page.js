@@ -1,10 +1,10 @@
-// src/app/pages/profile/page.js
+// src/app/Pages/Profile/page.js
 
 "use client";
 
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './profile.module.css';
+import styles from './Profile.module.css';
 import { useState } from 'react';
 
 const ProfilePage = () => {
@@ -95,7 +95,7 @@ const ProfilePage = () => {
             <div className={styles.section}>
                 <h2>Resume Builder</h2>
                 <div className={styles.resumePortfolio}>
-                    <Link href="resumebuilder">
+                    <Link href="ResumeBuilder">
                         <div className={styles.resumeCard}>Take me to build my resume!</div>
                     </Link>
                 </div>

@@ -1,7 +1,7 @@
-// src/app/Pages/Resumebuilder/page.js
+// src/app/Pages/ResumeBuilder/page.js
 import React from 'react';
 
-const Resumebuilder = () => {
+const ResumeBuilder = () => {
     return (
         <div>
             <h1>Resume Builder</h1>
@@ -10,4 +10,4 @@ const Resumebuilder = () => {
     );
 };
 
-export default Resumebuilder;
+export default ResumeBuilder;
