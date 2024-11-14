@@ -23,7 +23,7 @@ const ProfilePage = () => {
     const closePopup = () => setShowPopup(false);
 
     return (
-        <div>
+        <div className={styles.container}>
             <div className={styles.profileHeader}>
                 {/* You can replace this with a Next.js Image component */}
                 <div className={styles.profilePhoto}>
