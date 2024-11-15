@@ -1,0 +1,108 @@
+/* src/app/Pages/resumebuilder/resumebuilder.module.css */
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.card {
+    flex: 1 1 calc(33.333% - 20px);
+    background-color: #5a5a5a;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.section h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #5a5a5a;
+}
+
+.card p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.card ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.card li {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    .section h2 {
+        font-size: 1.5rem;
+    }
+    .card {
+        padding: 15px;
+    }
+    .card li {
+        font-size: 0.9rem;
+    }
+}
+
+.dynamicFieldsSection {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.fieldGroup {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.fieldGroup input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.fieldGroup button {
+    padding: 8px 12px;
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.fieldGroup button:hover {
+    background-color: #c9302c;
+}
+
+.button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #333;
+}
