@@ -13,17 +13,17 @@ def scrape_indeed():
     driver.get("https://www.indeed.com/jobs?q=tech%20jobs&l=")
 
     WebDriverWait(driver,10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "css-kyg8or eu4oa1w0"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".job_seen_beacon"))
     )
 
-    soup = BeautifulSoup(driver.page_source, "html_parser")
+    soup = BeautifulSoup(driver.page_source, "html.parser")
     
-    job_listings = soup.find_all("div", class_="css-pprl14 eu4oa1w0")
+    job_listings = soup.find_all("div", class_="slider_container")
 
     for job in job_listings:
-        title = job.find("a", attrs={"target" : "_self"}).get_text(strip=True) if job.find("a", attrs={"target" : "_self"}) else "N/A"
-        company = job.find("a", attrs={"data-testid" : "job-card-company"}).get_text(strip=True) if job.find("a", attrs={"data-testid" : "job-card-company"}) else "N/A"
-        location = job.find("a", attrs={"data-testid" : "job-card-location"}).get_text(strip=True) if job.find("a", attrs={"data-testid" : "job-card-location"}).get_text(strip=True) else "N/A"
+        title = job.find("h2","jobTitle").get_text(strip=True) if job.find("h2","jobTitle") else "N/A"
+        company = job.find("span", attrs={"data-testid" : "company-name"}).get_text(strip=True) if job.find("span", attrs={"data-testid" : "company-name"}) else "N/A"
+        location = job.find("div", attrs={"data-testid" : "text-location"}).get_text(strip=True) if job.find("div", attrs={"data-testid" : "text-location"}) else "N/A"
 
         print(f"Job Title: {title}")
         print(f"Company: {company}")
