@@ -1,6 +1,8 @@
 import requests
 import random
 
+#download packages in requirements-monster
+
 file_path = "C:\\Users\\Owner\\Desktop\\Doffy\\crawler\\proxy_list.txt"
 proxies_list = open(f"{file_path}", 'r').read().strip().split("\n")
 
