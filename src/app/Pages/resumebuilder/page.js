@@ -72,9 +72,10 @@ const ResumeBuilder = () => {
 
                     {/* Personal Information Section */}
                     <div className={styles.section}>
-                        <h2>Personal Information</h2>
+                        <h2 className={styles.sectionTitle}>Personal Information</h2>
                         <div className={styles.fieldGroup}>
                             <input
+                                className={styles.fieldInput}
                                 type="text"
                                 placeholder="First Name"
                                 value={personalInfoFields.firstname || ""}
@@ -86,6 +87,7 @@ const ResumeBuilder = () => {
                                 }}
                             />
                             <input
+                                className={styles.fieldInput}
                                 type="text"
                                 placeholder="Middle Name"
                                 value={personalInfoFields.middlename || ""}
@@ -97,6 +99,7 @@ const ResumeBuilder = () => {
                                 }}
                             />
                             <input
+                                className={styles.fieldInput}
                                 type="text"
                                 placeholder="Last Name"
                                 value={personalInfoFields.lastname || ""}
@@ -108,6 +111,7 @@ const ResumeBuilder = () => {
                                 }}
                             />
                             <input
+                                className={styles.fieldInput}
                                 type="text"
                                 placeholder="Email Address"
                                 value={personalInfoFields.email || ""}
@@ -120,13 +124,15 @@ const ResumeBuilder = () => {
                             />
                         </div>
                     </div>
-                    
+
+
                     {/* Links Section */}
                     <div className={styles.section}>
-                        <h2>Links</h2>
+                        <h2 className={styles.sectionTitle}>Links</h2>
                         {linksFields.map((field, index) => (
                             <div key={index} className={styles.fieldGroup}>
                                 <input
+                                    className={styles.fieldInput}
                                     type="text"
                                     placeholder="Link Type"
                                     value={field.linkType}
@@ -137,6 +143,7 @@ const ResumeBuilder = () => {
                                     }}
                                 />
                                 <input
+                                    className={styles.fieldInput}
                                     type="text"
                                     placeholder="Link URL"
                                     value={field.linkURL}
@@ -146,15 +153,23 @@ const ResumeBuilder = () => {
                                         setLinksFields(updatedFields);
                                     }}
                                 />
-                                <button onClick={() => removeField("links", index)}>Remove</button>
+                                <button
+                                    className={styles.fieldButton}
+                                    onClick={() => removeField("links", index)}
+                                >
+                                    Remove
+                                </button>
                             </div>
                         ))}
-                        <button className={styles.card} onClick={() => addField("links")}>Add Link</button>
+                        <button className={styles.fieldButton} onClick={() => addField("links")}>
+                            Add Link
+                        </button>
                     </div>
+
 
                     {/* Education Section */}
                     <div className={styles.section}>
-                        <h2>Education</h2>
+                        <h2 className={styles.sectionTitle}>Education</h2>
                         {educationFields.map((field, index) => (
                             <div key={index} className={styles.fieldGroup}>
                                 <input
@@ -197,15 +212,19 @@ const ResumeBuilder = () => {
                                         setEducationFields(updatedFields);
                                     }}
                                 />
-                                <button onClick={() => removeField("education", index)}>Remove</button>
+                                <button className={styles.fieldButton} onClick={() => removeField("education", index)}>
+                                    Remove
+                                </button>
                             </div>
                         ))}
-                        <button className={styles.card} onClick={() => addField("education")}>Add Education</button>
+                        <button className={styles.fieldButton} onClick={() => addField("education")}>
+                            Add Education
+                        </button>
                     </div>
 
                     {/* Work Experience Section */}
                     <div className={styles.section}>
-                        <h2>Work Experience</h2>
+                        <h2 className={styles.sectionTitle}>Work Experience</h2>
                         {workExperienceFields.map((field, index) => (
                             <div key={index} className={styles.fieldGroup}>
                                 <input
@@ -248,15 +267,19 @@ const ResumeBuilder = () => {
                                         setWorkExperienceFields(updatedFields);
                                     }}
                                 />
-                                <button onClick={() => removeField("work", index)}>Remove</button>
+                                <button className={styles.fieldButton} onClick={() => removeField("work", index)}>
+                                    Remove
+                                </button>
                             </div>
                         ))}
-                        <button className={styles.card} onClick={() => addField("work")}>Add Work Experience</button>
+                        <button className={styles.fieldButton} onClick={() => addField("work")}>
+                            Add Work Experience
+                        </button>
                     </div>
 
                     {/* Skills Section */}
                     <div className={styles.section}>
-                        <h2>Skills</h2>
+                        <h2 className={styles.sectionTitle}>Skills</h2>
                         {skillsFields.map((field, index) => (
                             <div key={index} className={styles.fieldGroup}>
                                 <input
@@ -279,10 +302,14 @@ const ResumeBuilder = () => {
                                         setSkillsFields(updatedFields);
                                     }}
                                 />
-                                <button onClick={() => removeField("skills", index)}>Remove</button>
+                                <button className={styles.fieldButton} onClick={() => removeField("skills", index)}>
+                                    Remove
+                                </button>
                             </div>
                         ))}
-                        <button className={styles.card} onClick={() => addField("skills")}>Add Work Experience</button>
+                        <button className={styles.fieldButton} onClick={() => addField("skills")}>
+                            Add Skill
+                        </button>
                     </div>
                 </div>
             </div>
