@@ -20,7 +20,7 @@ def get(url, proxy=None):
     if not proxy:
         proxy = get_random_proxy()
     try: 
-        response = session.get(url, proxies={'http': f"http://{proxy}", 'https': f"https://{proxy}"}, timeout=30)
+        response = session.get(url, proxies={'http': f"http://{proxy}", 'https': f"https://{proxy}"}, timeout=7)
         if response.status_code in VALID_STATUSES:  # valid proxy 
             set_working(proxy)
         else:

@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium_stealth import stealth
 from seleniumwire import webdriver
+from proxy_rotator import get_random_proxy
 import requests
 import random
 import time
@@ -14,11 +15,7 @@ import time
 
 
 def scrape_website():
-
-    #proxies
-    proxies_list = open("proxy_list.txt", 'r').read().strip().split("/n")
     
-
      #change request header to hide from anti-bot detection
     def interceptor(request):
       request.headers["Accept-Language"] = "en-US,en;q=0.9"
@@ -48,8 +45,15 @@ def scrape_website():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
 
+    #get and set random proxy
+    proxy = get_random_proxy()
+    print(f"Using proxy: {proxy}")
+    options.add_argument(f'--proxy-server=http://{proxy}')
+
+
     driver = webdriver.Chrome(service=service, options=options)
-    #change the value of the navigator for webdriver to undefined
+
+    #change the value of the navigator so the webdriver is undefined
     driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
     #replace headers
     driver.request_interceptor = interceptor
@@ -80,11 +84,15 @@ def scrape_website():
         fix_hairline=True,
         )
     
+    # def human():
+
+
+
     try:
 
         driver.get('https://www.monster.com/jobs/search?q=&where=Merced+Ca&page=1&so=m.s.sh')
 
-        time.sleep(random.uniform(2, 10))
+        time.sleep(random.uniform(10, 20))
         html = driver.page_source
         WebDriverWait(driver, 50).until(
             EC.presence_of_element_located((By.CLASS_NAME, 'indexmodern__JobCardComponent-sc-9vl52l-0 cTMPqx job-card-style__JobCardComponent-sc-306f0e9d-0 hTLvsC'))
