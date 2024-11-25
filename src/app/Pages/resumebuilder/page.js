@@ -247,14 +247,14 @@ const ResumeBuilder = () => {
                                         setEducationFields(updatedFields);
                                     }}
                                 />
-                                <input type="number" min="1980" max="2099" placeholder="Year"
+                                <input type="number" min="1980" max="2099" placeholder="From: 1980"
                                     onChange={(e) => {
                                         const updatedFields = [...educationFields];
                                         updatedFields[index].from = e.target.value;
                                         setEducationFields(updatedFields);
                                     }}
                                 />
-                                <input type="number" min="1980" max="2099" placeholder="Year"
+                                <input type="number" min="1980" max="2099" placeholder="To: 2099"
                                     value={field.to}
                                     onChange={(e) => {
                                         const updatedFields = [...educationFields];
