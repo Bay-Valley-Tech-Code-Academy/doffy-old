@@ -1,13 +1,11 @@
-// src/app/Pages/resumebuilder/page.js
-
 "use client";
 
 import styles from './resumebuilder.module.css';
 import { useState } from 'react';
+import axios from 'axios';
 
 const ResumeBuilder = () => {
 
-    // State to manage dynamic fields in Education and Work Experience
     const [personalInfoFields, setPersonalInfoFields] = useState({
         firstname: "",
         middlename: "",
@@ -19,20 +17,18 @@ const ResumeBuilder = () => {
     const [workExperienceFields, setWorkExperienceFields] = useState([]);
     const [skillsFields, setSkillsFields] = useState([]);
 
-    // Function to add new fields to various sections
     const addField = (section) => {
         if (section == "links") {
             setLinksFields([...linksFields, { linkType: "", linkURL: "" }]);
         } else if (section === "education") {
-            setEducationFields([...educationFields, { school: "", degree: "", from: "", to: "" }]);
+            setEducationFields([...educationFields, { school: "", degree: "", degreeType: "", from: "", to: "" }]);
         } else if (section === "work") {
             setWorkExperienceFields([...workExperienceFields, { jobTitle: "", company: "", from: "", to: "" }]);
         } else if (section === "skills") {
-            setSkillsFields([...skillsFields, { skill: "", describeSkill: "" }]);
+            setSkillsFields([...skillsFields, { skill: "", level: "", describeSkill: "" }]);
         }
     };
 
-    // Function to remove a field from various sections
     const removeField = (section, index) => {
         if (section == "links") {
             setLinksFields(linksFields.filter((_, i) => i !== index));
@@ -43,6 +39,56 @@ const ResumeBuilder = () => {
         } else if (section === "skills") {
             setSkillsFields(skillsFields.filter((_, i) => i !== index));
         }
+    };
+
+    const generateResumeJson = () => {
+        const resumeData = {
+            basics: {
+                name: `${personalInfoFields.firstname} ${personalInfoFields.middlename} ${personalInfoFields.lastname}`,
+                email: personalInfoFields.email,
+                profiles: linksFields.map(link => ({
+                    network: link.linkType,
+                    url: link.linkURL,
+                })),
+            },
+            work: workExperienceFields.map(work => ({
+                name: work.company,
+                position: work.jobTitle,
+                startDate: work.from,
+                endDate: work.to,
+            })),
+            education: educationFields.map(edu => ({
+                institution: edu.school,
+                area: edu.degree,
+                studyType: edu.degreeType,
+                startDate: edu.from,
+                endDate: edu.to,
+            })),
+            skills: skillsFields.map(skill => ({
+                name: skill.skill,
+                level: skill.level,
+                keywords: skill.describeSkill.split(", "),
+            })),
+        };
+
+        return resumeData;
+    };
+
+    const exportResumeAsPDF = (resumeData) => {
+        axios.post('http://localhost:3000/generate-resume', resumeData, { responseType: 'arraybuffer' })
+            .then(response => {
+                const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+                const url = window.URL.createObjectURL(pdfBlob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'resume.pdf';
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                console.error('Error exporting resume as PDF:', error);
+            });
+
     };
 
     return (
@@ -72,7 +118,7 @@ const ResumeBuilder = () => {
 
                     {/* Personal Information Section */}
                     <div className={styles.section}>
-                        <h2 className={styles.sectionTitle}>Personal Information</h2>
+                        <h2>Personal Information</h2>
                         <div className={styles.fieldGroup}>
                             <input
                                 className={styles.fieldInput}
@@ -125,7 +171,6 @@ const ResumeBuilder = () => {
                         </div>
                     </div>
 
-
                     {/* Links Section */}
                     <div className={styles.section}>
                         <h2 className={styles.sectionTitle}>Links</h2>
@@ -161,7 +206,7 @@ const ResumeBuilder = () => {
                                 </button>
                             </div>
                         ))}
-                        <button className={styles.fieldButton} onClick={() => addField("links")}>
+                        <button className={styles.button} onClick={() => addField("links")}>
                             Add Link
                         </button>
                     </div>
@@ -193,18 +238,23 @@ const ResumeBuilder = () => {
                                     }}
                                 />
                                 <input
-                                    type="month"
-                                    placeholder="From"
-                                    value={field.from}
+                                    type="text"
+                                    placeholder="Associate's, Bachelor's, Master's"
+                                    value={field.degreeType}
+                                    onChange={(e) => {
+                                        const updatedFields = [...educationFields];
+                                        updatedFields[index].degreeType = e.target.value;
+                                        setEducationFields(updatedFields);
+                                    }}
+                                />
+                                <input type="number" min="1980" max="2099" placeholder="Year"
                                     onChange={(e) => {
                                         const updatedFields = [...educationFields];
                                         updatedFields[index].from = e.target.value;
                                         setEducationFields(updatedFields);
                                     }}
                                 />
-                                <input
-                                    type="month"
-                                    placeholder="To"
+                                <input type="number" min="1980" max="2099" placeholder="Year"
                                     value={field.to}
                                     onChange={(e) => {
                                         const updatedFields = [...educationFields];
@@ -217,7 +267,7 @@ const ResumeBuilder = () => {
                                 </button>
                             </div>
                         ))}
-                        <button className={styles.fieldButton} onClick={() => addField("education")}>
+                        <button className={styles.button} onClick={() => addField("education")}>
                             Add Education
                         </button>
                     </div>
@@ -272,7 +322,7 @@ const ResumeBuilder = () => {
                                 </button>
                             </div>
                         ))}
-                        <button className={styles.fieldButton} onClick={() => addField("work")}>
+                        <button className={styles.button} onClick={() => addField("work")}>
                             Add Work Experience
                         </button>
                     </div>
@@ -294,6 +344,16 @@ const ResumeBuilder = () => {
                                 />
                                 <input
                                     type="text"
+                                    placeholder="Beginner, Intermediate, Expert"
+                                    value={field.level}
+                                    onChange={(e) => {
+                                        const updatedFields = [...skillsFields];
+                                        updatedFields[index].level = e.target.value;
+                                        setSkillsFields(updatedFields);
+                                    }}
+                                />
+                                <input
+                                    type="text"
                                     placeholder="Description of Skill"
                                     value={field.describeSkill}
                                     onChange={(e) => {
@@ -307,10 +367,38 @@ const ResumeBuilder = () => {
                                 </button>
                             </div>
                         ))}
-                        <button className={styles.fieldButton} onClick={() => addField("skills")}>
+                        <button className={styles.button} onClick={() => addField("skills")}>
                             Add Skill
                         </button>
                     </div>
+                </div>
+                <div>
+                    <button
+                        className={styles.button}
+                        onClick={() => {
+                            const resumeData = generateResumeJson();
+                            exportResumeAsPDF(resumeData);
+                        }}
+                    >
+                        Export Resume as PDF
+                    </button>
+                    <button
+                        className={styles.button}
+                        onClick={() => {
+                            const resumeData = generateResumeJson();
+
+                            const jsonBlob = new Blob([JSON.stringify(resumeData, null, 2)], { type: "application/json" });
+
+                            const url = URL.createObjectURL(jsonBlob);
+                            const a = document.createElement("a");
+                            a.href = url;
+                            a.download = "resume.json";
+                            a.click();
+                            URL.revokeObjectURL(url);
+                        }}
+                    >
+                        Save as JSON
+                    </button>
                 </div>
             </div>
         </div>
