@@ -1,6 +1,9 @@
 import requests
 import random
 
+#replace proxy_list.txt data center proxies with residential proxies 
+
+
 #download packages in requirements-monster
 
 file_path = "C:\\Users\\Owner\\Desktop\\Doffy\\crawler\\proxy_list.txt"
