@@ -2,19 +2,19 @@
   // Function to scrape job details from Indeed
   const scrapeIndeedJobs = () => {
     const jobData = [];
-    const jobCards = document.querySelectorAll('[class*="job_seen_beacon"]'); // Targeting job cards
+    const jobCards = document.querySelectorAll('[class*="job_seen_beacon"], [class*="JobCardWrap"]'); // Targeting job cards
 
     jobCards.forEach((jobCard) => {
       try {
         // Extract job details using selectors
         const titleElement = jobCard.querySelector(
-          '[class*="jobTitle css-1psdjh5 eu4oa1w0"]'
+          '[class*="jobTitle css-1psdjh5 eu4oa1w0"], a[class*="Title"]'
         );
         const companyElement = jobCard.querySelector(
-          '[class*="css-1h7lukg eu4oa1w0"]'
+          '[class*="css-1h7lukg eu4oa1w0"], [class*="indexmodern__Company-sc"] '
         );
         const locationElement = jobCard.querySelector(
-          '[class*="css-1restlb eu4oa1w0"]'
+          '[class*="css-1restlb eu4oa1w0"], [class*="JobMetaDetails"]'
         );
         const summaryElement = jobCard.querySelector(
           '[class*="jobMetaDataGroup css-qspwa8 eu4oa1w0"]'
@@ -30,9 +30,10 @@
         const summary = summaryElement
           ? summaryElement.innerText.trim()
           : "N/A";
+        
 
         // Add job details to the list
-        jobData.push({ title, company, location, summary });
+        jobData.push({ title, company, location, summary});
       } catch (error) {
         console.error("Error extracting job details:", error);
       }

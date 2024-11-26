@@ -9,9 +9,14 @@ document.getElementById("scrape-btn").addEventListener("click", () => {
         const url = URL.createObjectURL(blob);
 
         // Trigger file download
+        const currentUrl = tabs[0].url;
+        const urlParts = new URL(currentUrl);
+        const domain = urlParts.hostname;
+        const filename = `${domain}_jobs_.json`;
+
         chrome.downloads.download({
           url: url,
-          filename: "indeed_jobs.json",
+          filename: filename,
         });
 
         document.getElementById("status").innerText =
