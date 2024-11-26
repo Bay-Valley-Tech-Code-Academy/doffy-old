@@ -1,25 +1,52 @@
 (function () {
-  const scrapeJobs = () => {
+  // Function to scrape job details from Indeed
+  const scrapeIndeedJobs = () => {
     const jobData = [];
-    const jobElements = document.querySelectorAll("input[name='q']"); // Update this selector for target sites
+    const jobCards = document.querySelectorAll('[class*="job_seen_beacon"], [class*="JobCardWrap"]'); // Targeting job cards
 
-    jobElements.forEach((job) => {
-      const title = job.querySelector(".job-title")?.innerText;
-      const company = job.querySelector(".company-name")?.innerText;
-      const description = job.querySelector(".job-description")?.innerText;
+    jobCards.forEach((jobCard) => {
+      try {
+        // Extract job details using selectors
+        const titleElement = jobCard.querySelector(
+          '[class*="jobTitle css-1psdjh5 eu4oa1w0"], a[class*="Title"]'
+        );
+        const companyElement = jobCard.querySelector(
+          '[class*="css-1h7lukg eu4oa1w0"], [class*="indexmodern__Company-sc"] '
+        );
+        const locationElement = jobCard.querySelector(
+          '[class*="css-1restlb eu4oa1w0"], [class*="JobMetaDetails"]'
+        );
+        const summaryElement = jobCard.querySelector(
+          '[class*="jobMetaDataGroup css-qspwa8 eu4oa1w0"]'
+        );
 
-      if (title && company) {
-        jobData.push({ title, company, description });
+        const title = titleElement ? titleElement.innerText.trim() : "N/A";
+        const company = companyElement
+          ? companyElement.innerText.trim()
+          : "N/A";
+        const location = locationElement
+          ? locationElement.innerText.trim()
+          : "N/A";
+        const summary = summaryElement
+          ? summaryElement.innerText.trim()
+          : "N/A";
+        
+
+        // Add job details to the list
+        jobData.push({ title, company, location, summary});
+      } catch (error) {
+        console.error("Error extracting job details:", error);
       }
     });
 
     return jobData;
   };
 
+  // Listen for messages from the popup or background script
   chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if (msg.command === "scrape") {
-      const data = scrapeJobs();
-      sendResponse({ jobs: data });
+      const jobs = scrapeIndeedJobs();
+      sendResponse({ jobs });
     }
   });
 })();

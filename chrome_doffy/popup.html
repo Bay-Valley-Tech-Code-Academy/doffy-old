@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Job Scraper</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Job Scraper</h1>
-  <button id="scrape-btn">Scrape Jobs</button>
-  <div id="status"></div>
+  <div id="popup-container">
+    <header>
+      <h1>Job Scraper</h1>
+    </header>
+    <main>
+      <p>Extract job listings from the current page and download the data as a JSON file.</p>
+      <button id="scrape-btn">Scrape Jobs</button>
+      <div id="status" class="status"></div>
+    </main>
+    <footer>
+      <small>© 2024 Job Scraper</small>
+    </footer>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>
