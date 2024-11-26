@@ -22,20 +22,6 @@ const ProfilePage = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.profileHeader}>
-                {/* You can replace this with a Next.js Image component */}
-                <div className={styles.profilePhoto}>
-                    <p> Profile Picture
-                        Placeholder
-                    </p>
-                </div>
-                <div className={styles.profileInfo}>
-                    <h1>John Doe</h1>
-                    <p>Email: john.doe@example.com</p>
-                    <p>Location: San Francisco, CA</p>
-                </div>
-            </div>
-
             <div className={styles.section}>
                 <h2>Recent Saved Job Postings</h2>
                 <div className={styles.jobPostings}>
