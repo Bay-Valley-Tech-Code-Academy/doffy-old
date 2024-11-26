@@ -3,8 +3,11 @@
 import styles from './resumebuilder.module.css';
 import { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const ResumeBuilder = () => {
+
+    const router = useRouter();
 
     const [personalInfoFields, setPersonalInfoFields] = useState({
         firstname: "",
@@ -94,6 +97,12 @@ const ResumeBuilder = () => {
     return (
         <div>
             <div className={styles.container}>
+                <button
+                    className={styles.button}
+                    onClick={() => router.push('/Pages/profile')}
+                >
+                    Go to Profile Page
+                </button>
                 <div className={styles.section}>
                     <h2>Build My Resume!</h2>
                     <div className={styles.card}>
